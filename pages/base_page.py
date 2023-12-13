@@ -7,4 +7,3 @@ class BasePage():
     def open(self):
         # open the desired page in the browser
         self.browser.get(self.url)
-    
