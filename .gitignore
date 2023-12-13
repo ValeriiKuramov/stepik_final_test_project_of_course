@@ -9,6 +9,9 @@ __pycache__/
 # ignoring the pycharm environment files
 .idea
 
+# exclusion of virtual environment files
+selenium_env
+
 # Distribution / packaging
 .Python
 build/
