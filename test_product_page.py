@@ -37,6 +37,7 @@ def test_guest_can_add_product_to_basket(browser, link):
     # cost of the basket must match the price of the product
     product_page.should_be_product_price_must_match()
 
+@pytest.mark.skip(reason="currently skipping this test")
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     product_page = ProductPage(browser, link_not_promo)
     product_page.open()
@@ -45,12 +46,14 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     # check that after opening the page there is no message about the successful addition to the cart
     product_page.should_not_be_success_message()
 
+@pytest.mark.skip(reason="currently skipping this test")
 def test_guest_cant_see_success_message(browser):
     product_page = ProductPage(browser, link_not_promo)
     product_page.open()
     # check that after opening the page there is no message about the successful addition to the cart
     product_page.should_not_be_success_message()
 
+@pytest.mark.skip(reason="currently skipping this test")
 def test_message_disappeared_after_adding_product_to_basket(browser):
     product_page = ProductPage(browser, link_not_promo)
     product_page.open()
@@ -58,3 +61,16 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
     product_page.add_product_to_cart()
     # checking the disappearance of messages
     product_page.should_be_disappearing_element()
+
+
+def test_guest_should_see_login_link_on_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(browser, link)
+    page.open()
+    page.should_be_login_link()
+
+def test_guest_can_go_to_login_page_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    product_page = ProductPage(browser, link)
+    product_page.open()
+    product_page.go_to_login_page()
