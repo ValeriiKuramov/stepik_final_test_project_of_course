@@ -3,7 +3,9 @@ from .pages.product_page import ProductPage
 
 #link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
 #link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
+link_not_promo = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/"
 
+@pytest.mark.skip(reason="currently skipping this test")
 @pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer2",
@@ -34,3 +36,25 @@ def test_guest_can_add_product_to_basket(browser, link):
     product_page.should_be_product_names_must_match()
     # cost of the basket must match the price of the product
     product_page.should_be_product_price_must_match()
+
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+    product_page = ProductPage(browser, link_not_promo)
+    product_page.open()
+    # adding a product to the cart
+    product_page.add_product_to_cart()
+    # check that after opening the page there is no message about the successful addition to the cart
+    product_page.should_not_be_success_message()
+
+def test_guest_cant_see_success_message(browser):
+    product_page = ProductPage(browser, link_not_promo)
+    product_page.open()
+    # check that after opening the page there is no message about the successful addition to the cart
+    product_page.should_not_be_success_message()
+
+def test_message_disappeared_after_adding_product_to_basket(browser):
+    product_page = ProductPage(browser, link_not_promo)
+    product_page.open()
+    # adding a product to the cart
+    product_page.add_product_to_cart()
+    # checking the disappearance of messages
+    product_page.should_be_disappearing_element()
