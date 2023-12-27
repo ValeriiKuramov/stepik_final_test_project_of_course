@@ -17,6 +17,9 @@ from .pages.product_page import ProductPage
 def test_guest_can_add_product_to_basket(browser, link):
     product_page = ProductPage(browser, link)
     product_page.open()
+    # check that after opening the page there is no message about the successful addition to the cart
+    product_page.should_not_be_success_message()
+    # adding a product to the cart
     product_page.add_product_to_cart()
     product_page.solve_quiz_and_get_code()
     # check the availability of the product name on the page
@@ -31,4 +34,3 @@ def test_guest_can_add_product_to_basket(browser, link):
     product_page.should_be_product_names_must_match()
     # cost of the basket must match the price of the product
     product_page.should_be_product_price_must_match()
-
