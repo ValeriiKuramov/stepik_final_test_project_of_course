@@ -87,16 +87,17 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     basket_page.should_be_message_your_shopping_cart_is_empty()
 
 @pytest.mark.user_registration
-class  TestUserAddToBasketFromProductPage():
+class TestUserAddToBasketFromProductPage():
     @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser):
+        # opening the registration page
         link = 'http://selenium1py.pythonanywhere.com/accounts/login/'
         login_page = LoginPage(browser, link)
         login_page.open()
-
+        # creating fake values email and password
         email = str(time.time()) + "@fakemail.org"
         password = "7mNx5dRLz".join(str(time.time()))
-
+        # registering a new user
         login_page.register_new_user(email, password)
         # check that the user is registered
         login_page.should_be_authorized_user()
